@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Boardly - Настольные игры</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <!-- Главное меню -->
+    <div id="main-menu" class="screen active">
+        <div class="container">
+            <h1 class="logo">🎲 Boardy</h1>
+            <p class="subtitle">Играйте в настольные игры с друзьями!</p>
+
+            <div class="user-stats">
+                <div class="stat">
+                    <span class="stat-label">Игрок:</span>
+                    <span class="stat-value" id="username">Загрузка...</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Побед:</span>
+                    <span class="stat-value" id="wins">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Рейтинг:</span>
+                    <span class="stat-value" id="rating">1000</span>
+                </div>
+            </div>
+
+            <div class="games-grid">
+                <div class="game-card" onclick="selectGame('chess')">
+                    <div class="game-icon">♟️</div>
+                    <div class="game-name">Шахматы</div>
+                    <div class="game-players">2 игрока</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame('checkers')">
+                    <div class="game-icon">⚫</div>
+                    <div class="game-name">Шашки</div>
+                    <div class="game-players">2 игрока</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame('rps')">
+                    <div class="game-icon">✊</div>
+                    <div class="game-name">КНБ</div>
+                    <div class="game-players">2 игрока</div>
+                </div>
+            </div>
+
+            <div class="active-games" id="active-games">
+                <h3>Активные игры</h3>
+                <div id="games-list" class="games-list">
+                    <p class="empty-state">Нет активных игр</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран выбора режима -->
+    <div id="mode-select" class="screen">
+        <div class="container">
+            <button class="back-btn" onclick="showScreen('main-menu')">← Назад</button>
+            
+            <h2 id="game-title">Выберите режим</h2>
+
+            <div class="mode-grid">
+                <div class="mode-card" onclick="createGame()">
+                    <div class="mode-icon">🎮</div>
+                    <div class="mode-name">Создать игру</div>
+                    <div class="mode-desc">Пригласите друга</div>
+                </div>
+
+                <div class="mode-card" onclick="findGame()">
+                    <div class="mode-icon">🔍</div>
+                    <div class="mode-name">Найти игру</div>
+                    <div class="mode-desc">Случайный соперник</div>
+                </div>
+
+                <div class="mode-card" onclick="joinByCode()">
+                    <div class="mode-icon">🔢</div>
+                    <div class="mode-name">По коду</div>
+                    <div class="mode-desc">Введите код игры</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран ожидания -->
+    <div id="waiting-screen" class="screen">
+        <div class="container">
+            <button class="back-btn" onclick="cancelWaiting()">← Отменить</button>
+            
+            <div class="waiting-content">
+                <div class="spinner"></div>
+                <h2>Ожидание соперника...</h2>
+                
+                <div class="game-code" id="game-code-display" style="display: none;">
+                    <p>Код игры для друга:</p>
+                    <div class="code-box">
+                        <span id="game-code">XXXX</span>
+                        <button onclick="copyCode()" class="copy-btn">📋</button>
+                    </div>
+                    <button onclick="shareGame()" class="share-btn">📤 Поделиться</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Игровой экран -->
+    <div id="game-screen" class="screen">
+        <div class="container">
+            <button class="back-btn" onclick="leaveGame()">← Выйти</button>
+            
+            <!-- Информация об игроках -->
+            <div class="players-info">
+                <div class="player player-1">
+                    <div class="player-avatar">👤</div>
+                    <div class="player-details">
+                        <div class="player-name" id="player1-name">Игрок 1</div>
+                        <div class="player-time" id="player1-time">10:00</div>
+                    </div>
+                </div>
+
+                <div class="game-status">
+                    <div class="turn-indicator" id="turn-indicator">Ваш ход</div>
+                </div>
+
+                <div class="player player-2">
+                    <div class="player-avatar">👤</div>
+                    <div class="player-details">
+                        <div class="player-name" id="player2-name">Игрок 2</div>
+                        <div class="player-time" id="player2-time">10:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Игровое поле (будет заменяться динамически) -->
+            <div id="game-board" class="game-board">
+                <!-- Сюда загружается конкретная игра -->
+            </div>
+
+            <!-- Кнопки действий -->
+            <div class="game-actions">
+                <button class="action-btn" onclick="offerDraw()">🤝 Ничья</button>
+                <button class="action-btn" onclick="resign()">🏳️ Сдаться</button>
+            </div>
+
+            <!-- Чат -->
+            <div class="game-chat" id="game-chat">
+                <div class="chat-messages" id="chat-messages"></div>
+                <div class="chat-input">
+                    <input type="text" id="chat-input" placeholder="Сообщение...">
+                    <button onclick="sendMessage()">📤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран результата -->
+    <div id="result-screen" class="screen">
+        <div class="container">
+            <div class="result-content">
+                <div class="result-icon" id="result-icon">🏆</div>
+                <h2 id="result-title">Победа!</h2>
+                <p id="result-description">Вы выиграли партию</p>
+
+                <div class="result-stats">
+                    <div class="result-stat">
+                        <span class="label">Рейтинг:</span>
+                        <span class="value" id="rating-change">+25</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="label">Время:</span>
+                        <span class="value" id="game-duration">5:32</span>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn btn-primary" onclick="showScreen('main-menu')">В меню</button>
+                    <button class="btn btn-secondary" onclick="rematch()">Реванш</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="games/chess.js"></script>
+    <script src="games/checkers.js"></script>
+    <script src="games/rps.js"></script>
+</body>
+</html>

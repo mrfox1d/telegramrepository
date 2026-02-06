@@ -1,0 +1,701 @@
+:root {
+    --tg-bg: var(--tg-theme-bg-color, #ffffff);
+    --tg-text: var(--tg-theme-text-color, #000000);
+    --tg-hint: var(--tg-theme-hint-color, #999999);
+    --tg-link: var(--tg-theme-link-color, #3390ec);
+    --tg-button: var(--tg-theme-button-color, #3390ec);
+    --tg-button-text: var(--tg-theme-button-text-color, #ffffff);
+    --tg-secondary-bg: var(--tg-theme-secondary-bg-color, #f0f0f0);
+    
+    --primary: #3390ec;
+    --success: #4caf50;
+    --danger: #f44336;
+    --warning: #ff9800;
+    --dark: #1a1a1a;
+    --light: #f5f5f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--tg-bg);
+    color: var(--tg-text);
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+/* Screens */
+.screen {
+    display: none;
+    min-height: 100vh;
+    animation: fadeIn 0.3s ease;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Main Menu */
+.logo {
+    font-size: 36px;
+    text-align: center;
+    margin: 20px 0 8px;
+    font-weight: 700;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--tg-hint);
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.user-stats {
+    background: var(--tg-secondary-bg);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-around;
+    gap: 12px;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--tg-hint);
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--tg-text);
+}
+
+/* Games Grid */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.game-card {
+    background: var(--tg-secondary-bg);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.game-card:active {
+    transform: scale(0.95);
+    border-color: var(--tg-button);
+}
+
+.game-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+}
+
+.game-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.game-players {
+    font-size: 12px;
+    color: var(--tg-hint);
+}
+
+/* Active Games */
+.active-games h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.game-item {
+    background: var(--tg-secondary-bg);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.game-item:active {
+    transform: scale(0.98);
+}
+
+.game-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.game-item-name {
+    font-weight: 600;
+}
+
+.game-item-status {
+    font-size: 12px;
+    color: var(--tg-hint);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--tg-hint);
+    padding: 40px 20px;
+}
+
+/* Mode Select */
+.mode-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.mode-card {
+    background: var(--tg-secondary-bg);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.mode-card:active {
+    transform: scale(0.98);
+    border-color: var(--tg-button);
+}
+
+.mode-icon {
+    font-size: 36px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.mode-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.mode-desc {
+    font-size: 12px;
+    color: var(--tg-hint);
+}
+
+/* Buttons */
+.back-btn {
+    background: var(--tg-secondary-bg);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    color: var(--tg-text);
+}
+
+.btn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--tg-button);
+    color: var(--tg-button-text);
+}
+
+.btn-secondary {
+    background: var(--tg-secondary-bg);
+    color: var(--tg-text);
+}
+
+.btn:active {
+    transform: scale(0.98);
+    opacity: 0.8;
+}
+
+/* Waiting Screen */
+.waiting-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 24px;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--tg-secondary-bg);
+    border-top-color: var(--tg-button);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.game-code {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.code-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: var(--tg-secondary-bg);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 0;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.copy-btn, .share-btn {
+    background: var(--tg-button);
+    color: var(--tg-button-text);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.share-btn {
+    width: 100%;
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+/* Players Info */
+.players-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.player-1 {
+    flex-direction: row;
+}
+
+.player-2 {
+    flex-direction: row-reverse;
+}
+
+.player-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--tg-secondary-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.player-details {
+    flex: 1;
+}
+
+.player-2 .player-details {
+    text-align: right;
+}
+
+.player-name {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-time {
+    font-size: 12px;
+    color: var(--tg-hint);
+}
+
+.game-status {
+    flex-shrink: 0;
+}
+
+.turn-indicator {
+    background: var(--tg-button);
+    color: var(--tg-button-text);
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Game Board - будет специфичным для каждой игры */
+.game-board {
+    background: var(--tg-secondary-bg);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+/* Chess Board */
+.chess-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chess-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.chess-cell.white {
+    background: #f0d9b5;
+}
+
+.chess-cell.black {
+    background: #b58863;
+}
+
+.chess-cell.selected {
+    background: #7fb3d5 !important;
+}
+
+.chess-cell.valid-move {
+    position: relative;
+}
+
+.chess-cell.valid-move::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+}
+
+/* Checkers Board */
+.checkers-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.checkers-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.checkers-cell.white {
+    background: #f0d9b5;
+}
+
+.checkers-cell.black {
+    background: #b58863;
+}
+
+.checker-piece {
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.checker-piece.white {
+    background: #fff;
+}
+
+.checker-piece.black {
+    background: #333;
+}
+
+.checker-piece.king::after {
+    content: '👑';
+    position: absolute;
+    font-size: 16px;
+}
+
+.checker-piece.selected {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px var(--tg-button);
+}
+
+/* RPS (Rock Paper Scissors) */
+.rps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 0;
+}
+
+.rps-choices {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.rps-choice {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--tg-secondary-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 3px solid transparent;
+}
+
+.rps-choice:active {
+    transform: scale(0.95);
+}
+
+.rps-choice.selected {
+    border-color: var(--tg-button);
+    background: var(--tg-button);
+}
+
+.rps-result {
+    text-align: center;
+    font-size: 64px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rps-status {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Game Actions */
+.game-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 10px;
+    background: var(--tg-secondary-bg);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn:active {
+    transform: scale(0.98);
+    opacity: 0.8;
+}
+
+/* Chat */
+.game-chat {
+    background: var(--tg-secondary-bg);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.chat-messages {
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.chat-message {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.chat-message .sender {
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.chat-input {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    background: var(--tg-bg);
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background: var(--tg-secondary-bg);
+    color: var(--tg-text);
+    font-size: 14px;
+}
+
+.chat-input button {
+    padding: 8px 12px;
+    background: var(--tg-button);
+    color: var(--tg-button-text);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Result Screen */
+.result-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    gap: 24px;
+    text-align: center;
+}
+
+.result-icon {
+    font-size: 96px;
+}
+
+#result-title {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+#result-description {
+    color: var(--tg-hint);
+    font-size: 16px;
+}
+
+.result-stats {
+    display: flex;
+    gap: 32px;
+    margin: 16px 0;
+}
+
+.result-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.result-stat .label {
+    font-size: 12px;
+    color: var(--tg-hint);
+}
+
+.result-stat .value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--success);
+}
+
+.result-stat .value.negative {
+    color: var(--danger);
+}
+
+.result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chess-cell, .checkers-cell {
+        font-size: 24px;
+    }
+}
